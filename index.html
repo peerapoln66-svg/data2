@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEERAPOL NUROT Web · โรงพยาบาลเอกชนระดับสูง</title>
+    <style>
+        /* ===== ธีมโรงพยาบาลเอกชนระดับพรีเมียม =====
+             โทน Neutral–Warm : ขาว–เทาอ่อน, ทอง–น้ำตาล, น้ำเงินเข้ม
+             ดูง่าย หรู สงบ ปรับขนาดช่องเชื่อมต่อให้พอดี ไม่อึดอัด
+        */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F8F6F4;
+            color: #2C3E4F;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2.5rem;
+            position: relative;
+        }
+
+        /* ===== ส่วนหัว – สะอาด ทรงคุณค่า ===== */
+        .topnav {
+            background: #FFFFFF;
+            border-bottom: 4px solid #9A7D5C;
+            padding: 1.2rem 2.5rem;
+            box-shadow: 0 6px 24px rgba(44, 62, 80, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .topnav h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2C3E4F;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .topnav h1::before {
+            content: "🏥";
+            font-size: 2.4rem;
+            line-height: 1;
+            color: #9A7D5C;
+        }
+
+        .content {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 1.8rem;
+            box-shadow: 0 12px 32px -8px rgba(44, 62, 80, 0.06);
+            transition: all 0.25s ease;
+            border: 1px solid rgba(154, 125, 92, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 48px -12px rgba(44, 62, 80, 0.12);
+            border-color: rgba(154, 125, 92, 0.2);
+        }
+
+        /* ===== การ์ดเชื่อมต่อ BLE – ปรับให้พอดี ไม่อึดอัด ===== */
+        .card:first-of-type {
+            padding: 1.5rem;                  /* ลดจาก 1.8rem ให้กระชับขึ้น */
+            border-left: 6px solid #9A7D5C;
+        }
+
+        .card:first-of-type button {
+            min-width: 100px;                 /* ลดจาก 130px */
+            padding: 0.6rem 1.2rem;          /* ลดแนวตั้ง */
+            font-size: 0.9rem;               /* เล็กลงเล็กน้อย */
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .card:first-of-type p {
+            background: #F2EFEA;
+            padding: 0.5rem 1rem;            /* ลดจาก 0.7rem 1.4rem */
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 0.4rem;              /* ลดระยะห่าง */
+            border-left: 4px solid #9A7D5C;   /* เส้นบางลง */
+            font-weight: 600;
+            color: #2C3E4F;
+            font-size: 0.85rem;              /* ตัวอักษรกระชับ */
+        }
+
+        .card h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #3A4E62;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1.5px solid #EDE8E2;
+            padding-bottom: 0.7rem;
+            letter-spacing: 0.01em;
+        }
+
+        /* ไอคอนเฉพาะการ์ด */
+        .card-grid:last-of-type .card:nth-child(1) h2::before { content: "🌡️"; font-size: 1.5rem; }
+        .card-grid:last-of-type .card:nth-child(2) h2::before { content: "❤️"; font-size: 1.5rem; }
+        .card-grid:last-of-type .card:nth-child(3) h2::before { content: "🫁"; font-size: 1.5rem; }
+        .card-grid:last-of-type .card:nth-child(4) h2::before { content: "⚙️"; font-size: 1.5rem; }
+        .card-grid:last-of-type .card:nth-child(5) h2::before { content: "📋"; font-size: 1.5rem; }
+
+        .reading {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #2C3E4F;
+            line-height: 1.2;
+            margin: 0.2rem 0 0.5rem;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+
+        .reading span {
+            background: #F4F2EF;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid rgba(154, 125, 92, 0.2);
+            display: inline-block;
+            font-weight: 600;
+            color: #1F2E3A;
+        }
+
+        .gray-label {
+            color: #6B7C8B;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px dashed #D6CFC7;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .gray-label span {
+            background: #EDE8E2;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #3A4E62;
+            font-size: 0.8rem;
+            text-transform: none;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== ปุ่ม – ดีไซน์เรียบหรู สัมผัสนุ่มลึก ===== */
+        button {
+            border: none;
+            outline: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: 0.2s ease;
+            letter-spacing: 0.4px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 6px 16px rgba(44, 62, 80, 0.04);
+            background-size: 200% auto;
+        }
+
+        .connectButton {
+            background: linear-gradient(145deg, #4A6572, #2C3E4F);
+            color: white;
+        }
+        .connectButton:hover {
+            background: linear-gradient(145deg, #2C3E4F, #1F2E3A);
+            box-shadow: 0 12px 28px rgba(44, 62, 80, 0.2);
+            transform: scale(1.02);
+        }
+
+        .disconnectButton {
+            background: linear-gradient(145deg, #9A7D5C, #7C6450);
+            color: white;
+        }
+        .disconnectButton:hover {
+            background: linear-gradient(145deg, #7C6450, #624E3E);
+            box-shadow: 0 12px 28px rgba(154, 125, 92, 0.2);
+        }
+
+        .onButton {
+            background: linear-gradient(145deg, #5F7D8C, #3A5E6B);
+            color: white;
+        }
+        .onButton:hover {
+            background: linear-gradient(145deg, #3A5E6B, #2A4550);
+            box-shadow: 0 12px 28px rgba(63, 106, 118, 0.2);
+        }
+
+        .offButton {
+            background: linear-gradient(145deg, #A6B6C2, #8A9AA6);
+            color: white;
+        }
+        .offButton:hover {
+            background: linear-gradient(145deg, #8A9AA6, #6F7E8A);
+            box-shadow: 0 12px 28px rgba(138, 154, 166, 0.2);
+        }
+
+        #saveButton {
+            background: linear-gradient(145deg, #9A7D5C, #7C6450);
+            color: white;
+        }
+        #saveButton:hover {
+            background: linear-gradient(145deg, #7C6450, #624E3E);
+            box-shadow: 0 12px 28px rgba(154, 125, 92, 0.2);
+        }
+
+        #downloadButton {
+            background: linear-gradient(145deg, #4A6572, #2C3E4F);
+            color: white;
+        }
+        #downloadButton:hover {
+            background: linear-gradient(145deg, #2C3E4F, #1F2E3A);
+            box-shadow: 0 12px 28px rgba(44, 62, 80, 0.2);
+        }
+
+        /* BLE state – สีสถานะ */
+        #bleState {
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            background: rgba(106, 86, 69, 0.08);
+            display: inline-block;
+            transition: 0.2s;
+        }
+        #bleState[style*="color:#1F5E47"],
+        #bleState[style*="color:#24af37"] {
+            background: rgba(54, 128, 96, 0.1) !important;
+            border: 1px solid rgba(54, 128, 96, 0.3);
+            color: #1F5E47 !important;
+        }
+        #bleState[style*="color:#9A4B3E"],
+        #bleState[style*="color:#d13a30"] {
+            background: rgba(179, 79, 65, 0.08) !important;
+            border: 1px solid rgba(179, 79, 65, 0.2);
+            color: #9A4B3E !important;
+        }
+
+        #valueSent {
+            background: #E9E1D9;
+            color: #2C3E4F;
+            padding: 0.2rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 600;
+            display: inline-block;
+            border: 1px solid rgba(154, 125, 92, 0.3);
+        }
+
+        #recordCount {
+            background: #2C3E4F;
+            color: white;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 0.5rem;
+            box-shadow: 0 6px 14px rgba(44, 62, 80, 0.15);
+        }
+
+        #timestampTemp, #timestampHR, #timestampSpO2 {
+            font-weight: 600;
+            color: #3A4E62;
+            background: #EDE8E2;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .topnav h1 {
+                font-size: 1.8rem;
+            }
+            .content {
+                padding: 0 1.2rem;
+            }
+            .card-grid {
+                gap: 1.5rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .card:first-of-type {
+                padding: 1.2rem;          /* ให้เล็กลงอีกในมือถือ */
+            }
+            .reading {
+                font-size: 2.4rem;
+            }
+            button {
+                padding: 0.7rem 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .topnav {
+                padding: 1rem 1.2rem;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            .reading {
+                font-size: 2rem;
+            }
+        }
+
+        /* ===== รายละเอียดพรีเมียม ===== */
+        body::after {
+            content: "✦ การดูแลที่เหนือระดับ ✦";
+            position: fixed;
+            bottom: 20px;
+            right: 28px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2C3E4F;
+            box-shadow: 0 8px 24px rgba(44, 62, 80, 0.05);
+            border: 1px solid rgba(255,255,255,0.7);
+            letter-spacing: 0.08em;
+            z-index: 999;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            pointer-events: none;
+            box-shadow: inset 0 2px 6px rgba(255,255,255,0.6);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(45deg, rgba(154,125,92,0.01) 0px, rgba(154,125,92,0.01) 1px, transparent 1px, transparent 12px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes gentleGlow {
+            0% { box-shadow: 0 0 0 0 rgba(154,125,92,0.08); }
+            70% { box-shadow: 0 0 0 12px rgba(154,125,92,0); }
+            100% { box-shadow: 0 0 0 0 rgba(154,125,92,0); }
+        }
+        .reading span:not([style*="color:#d13a30"]) {
+            animation: gentleGlow 2.8s infinite ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="topnav">
+    <h1>PEERAPOL NUROT Web</h1>
+</div>
+
+<div class="content">
+    <!-- การ์ด BLE – ขนาดพอดี ไม่ใหญ่เกินไป -->
+    <div class="card-grid">
+        <div class="card">
+            <button id="connectBleButton" class="connectButton">Connect</button>
+            <button id="disconnectBleButton" class="disconnectButton">Disconnect</button>
+            <p class="gray-label">BLE state:
+                <strong><span id="bleState" style="color:#9A4B3E;">Disconnected</span></strong>
+            </p>
+        </div>
+    </div>
+
+    <div class="card-grid">
+        <div class="card">
+            <h2>Temperature</h2>
+            <p class="reading"><span id="tempValue">NaN</span></p>
+            <p class="gray-label">Last reading: <span id="timestampTemp"></span></p>
+        </div>
+        <div class="card">
+            <h2>Heart Rate</h2>
+            <p class="reading"><span id="hrValue">NaN</span></p>
+            <p class="gray-label">Last reading: <span id="timestampHR"></span></p>
+        </div>
+        <div class="card">
+            <h2>SpO₂</h2>
+            <p class="reading"><span id="spo2Value">NaN</span> %</p>
+            <p class="gray-label">Last reading: <span id="timestampSpO2"></span></p>
+        </div>
+        <div class="card">
+            <h2>Control GPIO 2</h2>
+            <button id="onButton" class="onButton">ON</button>
+            <button id="offButton" class="offButton">OFF</button>
+            <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
+        </div>
+        <div class="card">
+            <h2>Data</h2>
+            <button id="saveButton" class="onButton">Save</button>
+            <button id="downloadButton" class="connectButton">Download</button>
+            <p class="gray-label">Saved records: <span id="recordCount">0</span></p>
+	<div class="card">
+    	        <h2>Health Status</h2>
+                    <p class="reading">
+                        <span id="healthStatus">Waiting...</span>
+    </p>
+    <p class="gray-label">
+        Auto evaluation from sensors
+    </p>
+</div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // *********************************************************
+    // *  ไม่มีการเปลี่ยนแปลงโค้ด JavaScript หลักแต่อย่างใด   *
+    // *  คงเดิม พร้อมธีมพรีเมียมและขนาดที่พอดี                *
+    // *********************************************************
+    const deviceName = 'ESP32_Foke';
+
+    const GOOGLE_SHEET_URL =
+    "https://script.google.com/macros/s/AKfycbwdLv6puxPZnHt15odAqkVGyeCM0_P4-SZGYnrDNFqhopUK1Z6zGe51kz60TirJfBczHw/exec";
+
+    const bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
+    const tempCharUUID = '19b10001-e8f2-537e-4f6c-d104768a1214';
+    const ledCharUUID  = '19b10002-e8f2-537e-4f6c-d104768a1214';
+    const hrCharUUID   = '19b10003-e8f2-537e-4f6c-d104768a1214';
+    const spo2CharUUID = '19b10004-e8f2-537e-4f6c-d104768a1214';
+
+    let bleServer, bleServiceFound;
+
+    const bleState = document.getElementById("bleState");
+    const tempValue = document.getElementById("tempValue");
+    const hrValue = document.getElementById("hrValue");
+    const spo2Value = document.getElementById("spo2Value");
+
+    const tsTemp = document.getElementById("timestampTemp");
+    const tsHR = document.getElementById("timestampHR");
+    const tsSpO2 = document.getElementById("timestampSpO2");
+
+    document.getElementById("connectBleButton").onclick = connectBLE;
+    document.getElementById("disconnectBleButton").onclick = disconnectBLE;
+    document.getElementById("onButton").onclick = () => writeLED(1);
+    document.getElementById("offButton").onclick = () => writeLED(0);
+    document.getElementById("saveButton").onclick = saveData;
+    document.getElementById("downloadButton").onclick = downloadCSV;
+
+    let savedData = JSON.parse(localStorage.getItem("bleData")) || [];
+    document.getElementById("recordCount").innerHTML = savedData.length;
+
+    function connectBLE() {
+        navigator.bluetooth.requestDevice({
+            filters: [{ name: deviceName }],
+            optionalServices: [bleService]
+        })
+        .then(device => {
+            bleState.innerHTML = "Connected";
+            bleState.style.color = "#1F5E47";  // เขียวสุภาพ
+            device.addEventListener('gattservicedisconnected', disconnectBLE);
+            return device.gatt.connect();
+        })
+        .then(server => server.getPrimaryService(bleService))
+        .then(service => {
+            bleServiceFound = service;
+            subscribeCharacteristic(tempCharUUID, tempValue, tsTemp);
+            subscribeCharacteristic(hrCharUUID, hrValue, tsHR);
+            subscribeCharacteristic(spo2CharUUID, spo2Value, tsSpO2);
+        });
+    }
+
+    function subscribeCharacteristic(uuid, element, ts) {
+        bleServiceFound.getCharacteristic(uuid)
+        .then(ch => {
+            ch.addEventListener('characteristicvaluechanged', e => {
+                element.innerHTML = new TextDecoder().decode(e.target.value);
+                ts.innerHTML = new Date().toLocaleString();
+            });
+            ch.startNotifications();
+        });
+    }
+
+    function writeLED(val) {
+        bleServiceFound.getCharacteristic(ledCharUUID)
+        .then(ch => {
+            ch.writeValue(new Uint8Array([val]));
+            document.getElementById("valueSent").innerHTML = val;
+        });
+    }
+
+    function saveData() {
+        if (
+            tempValue.innerHTML === "NaN" ||
+            hrValue.innerHTML === "NaN" ||
+            spo2Value.innerHTML === "NaN"
+        ) {
+            alert("ยังไม่มีข้อมูลจาก ESP32");
+            return;
+        }
+
+        const record = {
+            temperature: tempValue.innerHTML,
+            heartRate: hrValue.innerHTML,
+            spo2: spo2Value.innerHTML
+        };
+
+    fetch("https://script.google.com/macros/s/AKfycbze1a8TndOgaATpFhIlAzDyBs5QDE19z-u6c5MZkPUb2PV9oAW_Zfis7xeQBLHegphcWg/exec", {
+    	method: "POST",
+   	headers: {
+        	"Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        temperature: tempValue.innerHTML,
+        heartRate: hrValue.innerHTML,
+        spo2: spo2Value.innerHTML
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log("Success:", data);
+})
+.catch(error => {
+    console.error("Error:", error);
+});
+
+
+        localStorage.setItem("bleData", JSON.stringify(savedData));
+        document.getElementById("recordCount").innerHTML = savedData.length;
+
+        alert("Saved to Google Sheets ✔");
+    }
+
+    function downloadCSV() {
+        if (savedData.length === 0) return;
+
+        let csv = "Time,Temperature,HeartRate,SpO2\n";
+        savedData.forEach(r => {
+            csv += `${r.time},${r.temperature},${r.heartRate},${r.spo2}\n`;
+        });
+
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "esp32_ble_data.csv";
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function disconnectBLE() {
+        bleState.innerHTML = "Disconnected";
+        bleState.style.color = "#9A4B3E";    // น้ำตาลแดง สุภาพ
+    }
+</script>
+
+</body>
+</html>
